@@ -131,7 +131,10 @@
   "git.openRepositoryInParentFolders": "always",
   "symbols.hidesExplorerArrows": false,
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "workbench.editor.empty.hint": "hidden",
   "update.showReleaseNotes": false,
@@ -245,7 +248,7 @@
     "zrevrank",
     "zscore"
   ],
-  "workbench.statusBar.visible": false,
+  "workbench.statusBar.visible": true,
   "editor.tokenColorCustomizations": {
     "textMateRules": []
   },
@@ -259,5 +262,10 @@
     "suppressIntegrationRequestTimedOutWarning": true
   },
   "liveServer.settings.donotShowInfoMsg": true,
-  "editor.multiCursorLimit": 50000
+  "editor.multiCursorLimit": 50000,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "emmet.ShowAbreviation": "never"
 }
