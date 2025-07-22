@@ -1,10 +1,16 @@
 import { reset, seed } from "drizzle-seed";
 import { db, sql } from "./connection.ts";
-import { schema } from "./schema/index.ts";
+import { rooms, questions } from "./schema/index.ts";
 
-await reset(db, schema);
+// Create a filtered schema without audio_chunks
+const seedableSchema = {
+  rooms,
+  questions,
+};
 
-await seed(db, schema).refine((f) => {
+await reset(db, seedableSchema);
+
+await seed(db, seedableSchema).refine((f) => {
   return {
     rooms: {
       count: 5,

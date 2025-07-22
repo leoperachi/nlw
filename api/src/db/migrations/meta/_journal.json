@@ -15,6 +15,13 @@
       "when": 1752702867664,
       "tag": "0001_green_red_shift",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752983606098,
+      "tag": "0002_striped_sheva_callister",
+      "breakpoints": true
     }
   ]
 }

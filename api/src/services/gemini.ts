@@ -1,8 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
-//import { env } from "../env.ts";
+import { env } from "../env.ts";
 
 const gemini = new GoogleGenAI({
-  apiKey: "AIzaSyD-9T2YTic333333333333333333333333",
+  apiKey: env.GEMINI_API_KEY,
 });
 
 const model = "gemini-2.5-flash";

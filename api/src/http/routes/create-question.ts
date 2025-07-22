@@ -48,7 +48,6 @@ export const createQuestionRoute: FastifyPluginCallbackZod = (app) => {
 
       if (chunks.length > 0) {
         const transcriptions = chunks.map((chunk) => chunk.transcription);
-
         answer = await generateAnswer(question, transcriptions);
       }
 
@@ -58,7 +57,6 @@ export const createQuestionRoute: FastifyPluginCallbackZod = (app) => {
         .returning();
 
       const insertedQuestion = result[0];
-
       if (!insertedQuestion) {
         throw new Error("Failed to create new room.");
       }

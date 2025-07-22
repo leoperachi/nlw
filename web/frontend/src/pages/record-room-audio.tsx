@@ -16,7 +16,7 @@ export function RecordRoomAudio() {
   const params = useParams<RoomParams>();
   const [isRecording, setIsRecording] = useState(false);
   const recorder = useRef<MediaRecorder | null>(null);
-  const intervalRef = useRef<number | null>(null);
+  // const intervalRef = useRef<number | null>(null);
 
   function stopRecording() {
     setIsRecording(false);
@@ -25,9 +25,9 @@ export function RecordRoomAudio() {
       recorder.current.stop();
     }
 
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    // if (intervalRef.current) {
+    //   clearInterval(intervalRef.current);
+    // }
   }
 
   async function uploadAudio(audio: Blob) {
@@ -46,6 +46,31 @@ export function RecordRoomAudio() {
     const result = await response.json();
 
     console.log(result);
+  }
+
+  async function startRecording() {
+    if (!isRecordingSupported) {
+      alert("O seu navegador não suporta gravação");
+      return;
+    }
+
+    setIsRecording(true);
+
+    const audio = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        sampleRate: 44_100,
+      },
+    });
+
+    createRecorder(audio);
+
+    // intervalRef.current = setInterval(() => {
+    //   recorder.current?.stop();
+
+    //   createRecorder(audio);
+    // }, 5000);
   }
 
   function createRecorder(audio: MediaStream) {
@@ -71,31 +96,6 @@ export function RecordRoomAudio() {
     recorder.current.start();
   }
 
-  async function startRecording() {
-    if (!isRecordingSupported) {
-      alert("O seu navegador não suporta gravação");
-      return;
-    }
-
-    setIsRecording(true);
-
-    const audio = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: true,
-        noiseSuppression: true,
-        sampleRate: 44_100,
-      },
-    });
-
-    createRecorder(audio);
-
-    intervalRef.current = setInterval(() => {
-      recorder.current?.stop();
-
-      createRecorder(audio);
-    }, 5000);
-  }
-
   if (!params.roomId) {
     return <Navigate replace to="/" />;
   }
@@ -103,9 +103,13 @@ export function RecordRoomAudio() {
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-3">
       {isRecording ? (
-        <Button onClick={stopRecording}>Pausar gravação</Button>
+        <Button variant="destructive" onClick={stopRecording}>
+          Pausar gravação
+        </Button>
       ) : (
-        <Button onClick={startRecording}>Gravar áudio</Button>
+        <Button variant="secondary" onClick={startRecording}>
+          Gravar áudio
+        </Button>
       )}
       {isRecording ? <p>Gravando...</p> : <p>Pausado</p>}
     </div>
